@@ -10,12 +10,14 @@ protected:
 public:
 	int weight;
 	int height;
-
+	static int count;
 	mammal() : weight(), height() {
 		std::cerr << "fill all fields" << std::endl;
+		mammal::count++;
 	}
 	mammal(int w, int h) : weight(w),height(h) {
 		display();
+		mammal::count++;
 	}
 	virtual ~mammal() {
 		std::cout << "mammal class destructor" << std::endl;
@@ -27,9 +29,11 @@ class lion : public mammal {
 public:
 	lion() {
 		std::cerr << "fill all fields" << std::endl;
+		mammal::count++;
 	}
 	lion(std::string n,int w,int h) : mammal(w,h), name(n) {
 		display();
+		mammal::count++;
 	}
 	void display() override {
 		std::cout << name << std::endl;
@@ -40,6 +44,7 @@ public:
 		this->weight = obj.weight;
 		this->height = obj.height;
 		this->name = obj.name;
+		mammal::count++;
 	}
 	lion& operator = (const lion& obj) {
 		this->weight = obj.weight;
@@ -78,9 +83,11 @@ public:
 	
 	rabbit() {
 		std::cerr << "fill all fields" << std::endl;
+		mammal::count++;
 	}
 	rabbit(std::string n, int w, int h) : mammal(w, h), name(n) {
 		display();
+		mammal::count++;
 	}
 	void display() override final {
 		std::cout << name << std::endl;
@@ -91,6 +98,7 @@ public:
 		this->weight = obj.weight;
 		this->height = obj.height;
 		this->name = obj.name;
+		mammal::count++;
 	}
 	void operator () (std::string n) {
 		if (n == name)
@@ -124,6 +132,9 @@ public:
 	}
 };
 
+int mammal::count = 0;
+ 
+
 int main() {
 	/*mammal* L = new lion("lion", 250, 91);
 	mammal* R = new rabbit("rabbit", 2, 40);
@@ -141,8 +152,16 @@ int main() {
 	delete L;
 	delete R;*/
 
-	lion L("lion", 250, 91);
+	/*lion L("lion", 250, 91);
 
 	L("lion");
-	L.display();
+	L.display();*/
+
+	
+
+	mammal m(5, 5);
+	lion l("lion", 5, 5);
+	rabbit r("rabbit", 5, 5);
+
+	std::cout << mammal::count << std::endl;
 }
